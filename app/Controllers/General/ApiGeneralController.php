@@ -9,7 +9,6 @@ use App\Models\Kelompok\KelompokModels;
 class ApiGeneralController extends BaseController
 {
     public function getListTeacher(){
-
         $page = intval($this->request->getVar('page'));
         $search = $this->request->getVar('term');
         $resultCount = 10;

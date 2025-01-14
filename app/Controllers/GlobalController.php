@@ -3,8 +3,7 @@
 namespace App\Controllers;
 
 
-use Config\Database;
-use Config\Services;
+use Config\{Database,Services};
 
 error_reporting(E_ALL & ~E_NOTICE);
 session_start();
@@ -31,6 +30,10 @@ class GlobalController extends BaseController {
 
     private function logError($e) {
         var_dump($e->getMessage() . " Line : " . $e->getLine());
+    }
+
+    private function flash() {
+
     }
 
     private function rekursifValidate($r,$data) {
@@ -73,19 +76,17 @@ class GlobalController extends BaseController {
     public function validateInput($request, $except = [], $callback = null)
     {
         $this->tempData = [];
-        $except = array_merge($except, ['_token', 'button']);
-        $data = $request->getPost();
+        $data           = $request->getPost();
 
         foreach ($data as $key => $value) {
-            if (in_array($key, $except)) {
-                continue;
-            }
 
             if (is_array($value)) {
                 $this->tempData[$key] = [];
+
                 if (count($value) > 0) {
                     $this->tempData[$key] = $this->rekursifValidate($value, $this->tempData[$key]);
                 }
+
             } else {
                 $cleanedValue = str_replace(
                     "--",
@@ -157,9 +158,8 @@ class GlobalController extends BaseController {
 
     protected function queryBuilder($processType = null, $callback, $catch = null)
     {
-        // Pesan default berdasarkan jenis proses
         $messages = [
-            'store' => ["success-store", "err-store"],
+            'store'  => ["success-store", "err-store"],
             'update' => ["success-update", "err-update"],
             'cancel' => ["success-cancel", "err-cancel"],
             'delete' => ["success-delete", "err-delete"]
