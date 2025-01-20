@@ -76,8 +76,10 @@
   <script src="<?= base_url('assets/js/plugins/perfect-scrollbar.min.js') ?>" ></script>
   <script src="<?= base_url('assets/js/plugins/smooth-scrollbar.min.js') ?>" ></script>
   <script src="<?= base_url('assets/js/plugins/chartjs.min.js') ?>" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <script>
+
+    <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
     new Chart(ctx, {

@@ -167,27 +167,20 @@ class GlobalController extends BaseController {
 
         $msg = $messages[$processType] ?? ["success", "error"];
 
-        $this->db->trans_start();
+        $this->db->transStart();
         try {
             $result = $callback();
-            $this->db->trans_complete();
+            $this->db->transComplete();
 
-            if ($this->db->trans_status() === false) {
+            if ($this->db->transStatus() === false) {
                 throw new Exception("Database transaction failed.");
             }
 
-            if ($processType && !$this->session->flashdata('message')) {
-                $this->flash([$msg[0]]);
-            }
 
         } catch (Exception $e) {
-            $this->db->trans_rollback();
+            $this->db->transRollback();
 
             log_message('error', $e->getMessage());
-
-            if ($processType && !$this->session->flashdata('message')) {
-                $this->flash([$msg[1]]);
-            }
 
             if ($catch) {
                 return $catch($e);
@@ -197,6 +190,19 @@ class GlobalController extends BaseController {
         }
 
         return $result ?? null;
+
+    }
+
+    protected function dump(mixed $data): void
+    {
+        echo "<pre>";
+        if (is_array($data) || is_object($data)) {
+            print_r($data);
+        } else {
+            var_dump($data);
+        }
+        echo "</pre>";
+        die;
     }
 
 }

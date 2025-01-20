@@ -15,8 +15,9 @@ $routes->group('admin', ['filter' => 'auth'],function($routes){
 	$routes->post('student', 'StudentController::form');
 
 	// teacher
-	$routes->get('teacher', 'Teacher\TeacherController::index');
-	$routes->post('teacher', 'Teacher\TeacherController::form');
+	$routes->get('teacher', 'DosenManagement\DosenController::index');
+	$routes->post('teacher/store', 'DosenManagement\DosenController::store');
+	$routes->post('teacher/delete', 'DosenManagement\DosenController::delete');
 
 	// kelompok
 	$routes->get('kelompok', 'Kelompok\KelompokController::index');

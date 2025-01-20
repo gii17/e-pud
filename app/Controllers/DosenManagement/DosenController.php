@@ -2,7 +2,7 @@
 
 namespace App\Controllers\DosenManagement;
 
-use App\Controllers\Service\EnvironmentController;
+use App\Controllers\Services\EnvironmentController;
 use App\Models\Dosen\Dosen;
 use CodeIgniter\HTTP\Request;
 
@@ -12,29 +12,24 @@ class DosenController extends EnvironmentController {
         parent::__construct(Dosen::class);
     }
 
-    public function index(Request $request) {
-        $case = [];
-        if($this->validatingParam($request,$case)) {
-            $data = $this->validateInput($request);
+    public function index() {
+        $data = $this->request->getPost();
 
-            return view('page/identitas-pegawai/index', [
-                "data"  => static::$__model->paginate->paginate(10),
-                "pager" => static::$__model->pager
-            ]);
-        }
+        return view('page/Dosen/index',$this->defaultPayload());
     }
 
-    public function store(Request $request) {
-        $data = $this->validateInput($request);
+    public function store($datas = null, $action = 'insert') {
+        $data = $this->request->getPost();
         return $this->queryBuilder("store", function() use ($data) {
-            return parent::store($data);
+            $data = parent::store($data);
+            return redirect()->to("admin/teacher");
         },function(\Exception $e) {
             var_dump($e->getMessage());
         });
     }
 
-    public function update(Request $request) {
-        $data = $this->validateInput($request);
+    public function update($datas) {
+        $data = $this->request->getPost();
         return $this->queryBuilder("update", function() use ($data) {
             return parent::update($data);
         },function(\Exception $e) {

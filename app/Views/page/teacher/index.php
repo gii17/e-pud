@@ -22,10 +22,14 @@ Data Guru
                 <table class="table datatables align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Identitas</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis Kelamin</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tempat Tanggal Lahir</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tahun Masuk</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Dosen</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NIDN/NIDK</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pendidikan Pasca Sarjana</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bidang Keahlian</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sertifikat Pendidik Profesional</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sertifikat  Kompetensi/ Profesi/  Industri</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mata Kuliah yang Diampu</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kesesuaian Bidang Keahlian Diampu</th>
                       <th class="text-secondary opacity-7"></th>
                     </tr>
                   </thead>
@@ -79,15 +83,11 @@ Data Guru
             language: { emptyTable: "Belum ada guru saat ini"},
             columns: [
               { 
-                data: 'nama_lengkap',
+                data: 'name',
                 render: function ( data, type, row ) {
                     let component = `<div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="${row.photo}" class="avatar avatar-sm me-3" alt="user1">
-                          </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">${row.nama_lengkap}</h6>
-                            <p class="text-xs text-secondary mb-0">${row.nomor_induk}</p>
+                            <h6 class="mb-0 text-sm">${row.name}</h6>
                           </div>
                         </div>`;
                     return component;

@@ -59,7 +59,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Data Guru</span>
+            <span class="nav-link-text ms-1">Dosen Tidak Tetap</span>
           </a>
         </li>
 
