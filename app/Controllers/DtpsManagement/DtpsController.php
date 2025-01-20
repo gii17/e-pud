@@ -1,27 +1,34 @@
 <?php
 
-namespace App\Controllers\DosenManagement;
+namespace App\Controllers\DtpsManagement;
 
 use App\Controllers\Services\EnvironmentController;
 use App\Models\Dosen\Dosen;
+use App\Models\DTPS\Dtps;
 use CodeIgniter\HTTP\Request;
 
-class DosenController extends EnvironmentController {
+class DtpsController extends EnvironmentController {
     public function __construct()
     {
-        parent::__construct(Dosen::class);
+        parent::__construct(Dtps::class);
     }
 
     public function index() {
-        $data = $this->request->getPost();
-        return view('page/Dosen/index',$this->defaultPayload());
+        $data = $this->request->getGet();
+        return view('page/Dtps/index',
+            array_merge($this->defaultPayload(),[
+                "flag"  => $data['flag'],
+                "datas" => static::$__model->where("flag",(strtoupper($data['flag']) == "PKM") ? 1 : 0 )->paginate(10)
+            ])
+        );
     }
 
     public function store($datas = null, $action = 'insert') {
         $data = $this->request->getPost();
         return $this->queryBuilder("store", function() use ($data) {
-            $data = parent::store($data);
-            return redirect()->to("admin/teacher");
+            $model = parent::store($data);
+            $url   = ($data['flag'] == 1) ? "admin/dtps?flag=pkm" : "admin/dtps?flag=Penelitian";
+            return redirect()->to($url);
         },function(\Exception $e) {
             var_dump($e->getMessage());
         });

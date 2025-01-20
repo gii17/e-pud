@@ -19,6 +19,10 @@ $routes->group('admin', ['filter' => 'auth'],function($routes){
 	$routes->post('teacher/store', 'DosenManagement\DosenController::store');
 	$routes->post('teacher/delete', 'DosenManagement\DosenController::delete');
 
+    $routes->get('dtps', 'DtpsManagement\DtpsController::index');
+    $routes->post('dtps/store', 'DtpsManagement\DtpsController::store');
+    $routes->post('dtps/delete', 'DtpsManagement\DtpsController::delete');
+
 	// kelompok
 	$routes->get('kelompok', 'Kelompok\KelompokController::index');
 	$routes->post('kelompok', 'Kelompok\KelompokController::form');
