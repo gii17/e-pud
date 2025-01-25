@@ -19,7 +19,7 @@ class EnvironmentController extends ServiceController {
 //        $this->dump([static::$__model->allowedFields,static::$__model->paginate(10)]);
         return [
             'allowedFields' => static::$__model->allowedFields,
-            "datas"         => static::$__model->paginate(10),
+            "datas"         => static::$__model->paginate(5),
             "pager"         => static::$__model->pager
         ];
     }

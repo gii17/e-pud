@@ -5,7 +5,7 @@ Data Guru
 <?= $this->endSection() ?>
 
 <?= $this->section('action-page') ?>
-<button class="btn btn-outline-primary btn-sm mb-0 me-3" type="button" data-bs-toggle="modal" data-bs-target="#add--teacher__modal" id="new_guru">Guru Baru</button>
+<button class="btn btn-outline-primary btn-sm mb-0 me-3" type="button" data-bs-toggle="modal" data-bs-target="#add--teacher__modal" id="new_guru">Tambah Data</button>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -61,15 +61,15 @@ Data Guru
                                                     data-csrf="<?= csrf_hash() ?>">
                                                 Hapus
                                             </button>
-
-
-
                                         </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-end" style="margin-right: 30px;">
+                            <?= $pager->links('default', 'bootstrap_pagination') ?>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,11 +1,11 @@
 <?= $this->extend('layout/app') ?>
 
 <?= $this->section('current-page') ?>
-Data DTPS <?= strtoupper($flag) ?>
+Data Rekognisi / Pengakuan DTPS
 <?= $this->endSection() ?>
 
 <?= $this->section('action-page') ?>
-<button class="btn btn-outline-primary btn-sm mb-0 me-3" type="button" data-bs-toggle="modal" data-bs-target="#add--teacher__modal" id="new_guru">DTPS Baru</button>
+<button class="btn btn-outline-primary btn-sm mb-0 me-3" type="button" data-bs-toggle="modal" data-bs-target="#add--teacher__modal" id="new_guru">Tambah Data</button>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -15,51 +15,43 @@ Data DTPS <?= strtoupper($flag) ?>
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h6>Data DTPS <?= strtoupper($flag) ?></h6>
+                    <h6>Data Rekognisi / Pengakuan DTPS</h6>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" style="border:1px solid hotpink" rowspan="2">Sumber daya</th>
-                                <?php
-                                    if(isset($flag) && strtoupper($flag) == "PKM") {
-                                        $text = "Jumlah Judul PKM";
-                                    }else $text = "Jumlah Penelitan";
-                                ?>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" style="border:1px solid hotpink" colspan="3"><?= $text ?></th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" style="border:1px solid hotpink" rowspan="2">Jenis</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" style="border:1px solid hotpink" rowspan="2">Jumlah</th>
-                                <th class="text-secondary opacity-7" style="border:1px solid hotpink" rowspan="2">Action</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" rowspan="2">Nama Dosen</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" rowspan="2">Bidang Keahlian</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" rowspan="2">Rekognisi dan Bukti Pendukung</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="3">Tingkat</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" rowspan="2">Tahun (YYYY)</th>
+                                <th class="text-secondary opacity-7" rowspan="2">Action</th>
                             </tr>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" style="border:1px solid hotpink">TS</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" style="border:1px solid hotpink">TS-1</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" style="border:1px solid hotpink">TS-2</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Wilayah</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nasional</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">International</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $total = 0 ?>
                             <?php foreach ($datas as $item): ?>
                                 <tr>
                                     <?php foreach ($allowedFields as $field): ?>
-                                        <?php
-                                            if($field == "flag" ) {
-                                                $item[$field] = ($item[$field] == 1) ? "PKM" : "Penelitian";
-                                            }
-                                        ?>
                                         <?= view('layout/tabel_row', ['item' => $item, 'field' => $field]) ?>
                                     <?php endforeach; ?>
                                     <td>
                                         <div style="display: flex; gap: 10px">
                                             <button class="btn btn-sm btn-secondary edit__button" data-bs-toggle="modal" data-bs-target="#add--teacher__modal"
                                                     data-id="<?= $item['id'] ?? '-' ?>"
-                                                    data-name="<?= $item['name'] ?? '-' ?>"
-                                                    data-ts="<?= $item['ts'] ?? '-' ?>"
-                                                    data-ts1="<?= $item['ts1'] ?? '-' ?>"
-                                                    data-ts2="<?= $item['ts2'] ?? '-' ?>"
-                                                    data-jumlah="<?= $item['jumlah'] ?? '-' ?>">
+                                                    data-nama="<?= $item['name'] ?? '-' ?>"
+                                                    data-bidang="<?= $item['bidang'] ?? '-' ?>"
+                                                    data-rekognisi="<?= $item['rekognisi'] ?? '-' ?>"
+                                                    data-wilayah="<?= $item['wilayah'] ?? '-' ?>"
+                                                    data-nasional="<?= $item['nasional'] ?? '-' ?>"
+                                                    data-internasional="<?= $item['internasional'] ?? '-' ?>"
+                                                    data-year="<?= $item['year'] ?? '-' ?>">
                                                 Edit
                                             </button>
                                             <button class="btn btn-sm btn-danger delete__button"
@@ -69,16 +61,12 @@ Data DTPS <?= strtoupper($flag) ?>
                                                 Hapus
                                             </button>
 
+
+
                                         </div>
                                     </td>
                                 </tr>
-                                <?php $total += $item['jumlah'] ?>
                             <?php endforeach; ?>
-                            <tr>
-<!--                                <td colspan="4">-->
-<!--                                    Jumlah : --><?php //=  $total ?>
-<!--                                </td>-->
-                            </tr>
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-end" style="margin-right: 30px;">
@@ -100,19 +88,23 @@ Data DTPS <?= strtoupper($flag) ?>
     for (let btn of editButtons) {
         btn.addEventListener('click', () => {
             setTimeout(() => {
-                const id     = btn.getAttribute('data-id');
-                const name   = btn.getAttribute('data-name');
-                const ts     = btn.getAttribute('data-ts');
-                const ts1    = btn.getAttribute('data-ts1');
-                const ts2    = btn.getAttribute('data-ts2');
-                const jumlah = btn.getAttribute('data-jumlah');
+                const data_id            =   btn.getAttribute('data-id');
+                const data_nama          =   btn.getAttribute('data-nama');
+                const data_bidang        =   btn.getAttribute('data-bidang');
+                const data_rekognisi     =   btn.getAttribute('data-rekognisi');
+                const data_wilayah       =   btn.getAttribute('data-wilayah');
+                const data_nasional      =   btn.getAttribute('data-nasional');
+                const data_internasional =   btn.getAttribute('data-internasional');
+                const data_year          =   btn.getAttribute('data-year');
 
-                document.getElementById('data_id').value       = id;
-                document.getElementById('data_name').value    =  name;
-                document.getElementById('data_ts').value       = ts;
-                document.getElementById('data_ts1').value      = ts1;
-                document.getElementById('data_ts2').value      = ts2;
-                document.getElementById('data_jumlah').value   = jumlah;
+                document.getElementById('rekognisi_id').value             = data_id;
+                document.getElementById('rekognisi_name').value           = data_nama;
+                document.getElementById('rekognisi_bidang').value         = data_bidang;
+                document.getElementById('rekognisi_desc').value           = data_rekognisi;
+                document.getElementById('rekognisi_wilayah').value        = data_wilayah;
+                document.getElementById('rekognisi_nasional').value       = data_nasional;
+                document.getElementById('rekognisi_internasional').value  = data_internasional;
+                document.getElementById('rekognisi_year').value           = data_year;
             }, 100)
         })
 
@@ -124,7 +116,7 @@ Data DTPS <?= strtoupper($flag) ?>
                 const csrf_token  = btn.getAttribute('data-csrf');
 
                 Swal.fire({
-                    title: `Apakah Anda yakin ingin menghapus sumber daya ${name}?`,
+                    title: `Apakah Anda yakin ingin menghapus guru ${name}?`,
                     text: "Data yang dihapus tidak dapat dikembalikan!",
                     icon: 'warning',
                     showCancelButton: true,
@@ -137,7 +129,7 @@ Data DTPS <?= strtoupper($flag) ?>
                     if (result.isConfirmed) {
 
                         // Menggunakan metode POST untuk mengirim permintaan
-                        fetch('/admin/dtps/delete', {
+                        fetch('/admin/rekognisi/delete', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -153,7 +145,7 @@ Data DTPS <?= strtoupper($flag) ?>
                                 if (data.success) {
                                     Swal.fire(
                                         'Terhapus!',
-                                        'Data guru telah dihapus.',
+                                        'Data rekognisi telah dihapus.',
                                         'success'
                                     );
                                     btn.closest('tr').remove();
@@ -183,7 +175,7 @@ Data DTPS <?= strtoupper($flag) ?>
 </script>
 
 <!-- Modal Edit/Create -->
- <?= view('page/DTPS/modal/form',["flag" => $flag]); ?>
+ <?= view('page/Rekognisi/modal/form'); ?>
 
 
 <?= $this->endSection() ?>

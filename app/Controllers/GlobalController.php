@@ -156,7 +156,7 @@ class GlobalController extends BaseController {
         return $this->errorDetails;
     }
 
-    protected function queryBuilder($processType = null, $callback, $catch = null)
+    protected function queryBuilder($processType = null,callable $callback, $catch = null)
     {
         $messages = [
             'store'  => ["success-store", "err-store"],

@@ -5,7 +5,7 @@ Data Guru
 <?= $this->endSection() ?>
 
 <?= $this->section('action-page') ?>
-<button class="btn btn-outline-primary btn-sm mb-0 me-3" type="button" data-bs-toggle="modal" data-bs-target="#add--teacher__modal" id="new_guru">Guru Baru</button>
+<button class="btn btn-outline-primary btn-sm mb-0 me-3" type="button" data-bs-toggle="modal" data-bs-target="#add--teacher__modal" id="new_guru">Tambah Data</button>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
